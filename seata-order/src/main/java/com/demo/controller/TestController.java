@@ -22,9 +22,9 @@ public class TestController {
 
     @GetMapping
     public String test() {
-        var userId = 1;
-        var money = 2;
-        var goodName = "肥皂";
+        int userId = 1;
+        int money = 2;
+        String goodName = "肥皂";
         orderService.createOrder(userId, goodName, money);
         return "hello";
     }

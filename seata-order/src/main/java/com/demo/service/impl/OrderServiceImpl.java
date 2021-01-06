@@ -26,13 +26,13 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, OrderDO> implemen
     @Override
     @GlobalTransactional
     public void createOrder(int userId, String goodName, int money) {
-        var orderDO = new OrderDO();
+        OrderDO orderDO = new OrderDO();
         orderDO.setUserId(userId);
         orderDO.setGoodName(goodName);
         orderDO.setPrice(money);
         super.save(orderDO);
 
-        var res1 = userFeignClient.decreaseMoney(userId, money);
+        String res1 = userFeignClient.decreaseMoney(userId, money);
         System.out.println(res1);
     }
 
