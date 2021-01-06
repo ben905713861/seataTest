@@ -1,30 +1,18 @@
 package com.demo.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
-import com.baomidou.mybatisplus.core.MybatisConfiguration;
-import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
 
 import io.seata.rm.datasource.DataSourceProxy;
 
-import java.io.IOException;
-
-import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.type.JdbcType;
-import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 /**
  * 数据源代理
@@ -40,7 +28,13 @@ public class DataSourceConfiguration {
         return new DruidDataSource();
     }
 
+    /**
+     * seata数据源代理，必须加@Primary
+     * @param originDataSource
+     * @return
+     */
     @Bean
+    @Primary
     public DataSourceProxy dataSourceProxy(@Qualifier("originDataSource") DataSource originDataSource) {
         return new DataSourceProxy(originDataSource);
     }

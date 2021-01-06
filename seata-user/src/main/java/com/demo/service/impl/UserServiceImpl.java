@@ -20,24 +20,20 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void decreaseMoney(int userId, int money) {
-
-        /**
-         * SELECT * FROM user WHERE id=#{userId} FOR UPDATE
-         * 不执行这句话不会获取到全局锁，第二个全局事务的update会在第一个全局事务没完成的时候就执行
-         */
-        // super.baseMapper.getByIdForUpdate(userId);
-
-        /**
-         * update user set money=money-#{money} where id=#{userId}
-         */
-        super.baseMapper.decreaseMoney(userId, money);
-
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        UserDO userDO = super.baseMapper.getByIdForUpdate(userId);
+        int afterMoney = userDO.getMoney().intValue() - money;
+        if (afterMoney < 0) {
+            throw new RuntimeException("钱不够了");
         }
-        throw new RuntimeException("强制抛异常");
+        userDO.setMoney(afterMoney);
+        super.baseMapper.updateById(userDO);
+
+        // try {
+        // Thread.sleep(5000);
+        // } catch (InterruptedException e) {
+        // e.printStackTrace();
+        // }
+        // throw new RuntimeException("强制抛异常");
     }
 
 }

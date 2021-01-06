@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
 /**
  * 数据源代理
@@ -27,7 +28,13 @@ public class DataSourceConfiguration {
         return new DruidDataSource();
     }
 
+    /**
+     * seata数据源代理，必须加@Primary
+     * @param originDataSource
+     * @return
+     */
     @Bean
+    @Primary
     public DataSourceProxy dataSourceProxy(@Qualifier("originDataSource") DataSource originDataSource) {
         return new DataSourceProxy(originDataSource);
     }
