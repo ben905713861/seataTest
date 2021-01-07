@@ -13,4 +13,6 @@ public interface UserService extends IService<UserDO> {
 
     void decreaseMoney(int userId, int money);
 
+    UserDO getById(int userId);
+
 }

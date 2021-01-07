@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.demo.entity.UserDO;
 import com.demo.service.UserService;
 
 @RestController
@@ -24,6 +25,15 @@ public class TestController {
     public String decreaseMoney(int userId, int money) {
         userService.decreaseMoney(userId, money);
         return "ok";
+    }
+
+    @GetMapping("/getMoney")
+    public Integer getMoney(int userId) {
+        UserDO userDO = userService.getById(userId);
+        if (userDO == null) {
+            return -1;
+        }
+        return userDO.getMoney();
     }
 
 }

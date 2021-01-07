@@ -1,0 +1,23 @@
+seata:
+  enabled: true
+  application-id: business-service
+  tx-service-group: my_test_tx_group
+  service:
+    vgroup-mapping:
+      my_test_tx_group: default
+    grouplist:
+      default: 127.0.0.1:8091
+    #enable-degrade: false
+    #disable-global-transaction: false
+  registry:
+    type: file
+    nacos:
+      server-addr: 127.0.0.1:8848
+      namespace:
+      group: SEATA_GROUP
+  config:
+    type: file
+    nacos:
+      namespace:
+      serverAddr: 127.0.0.1:8848
+      group: SEATA_GROUP

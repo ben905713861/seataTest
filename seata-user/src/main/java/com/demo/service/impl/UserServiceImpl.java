@@ -14,6 +14,8 @@ import com.demo.entity.UserDO;
 import com.demo.mapper.UserMapper;
 import com.demo.service.UserService;
 
+import io.seata.spring.annotation.GlobalTransactional;
+
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements UserService {
 
@@ -29,11 +31,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
         super.baseMapper.updateById(userDO);
 
         // try {
-        // Thread.sleep(5000);
+        // Thread.sleep(20000);
         // } catch (InterruptedException e) {
         // e.printStackTrace();
         // }
         // throw new RuntimeException("强制抛异常");
+    }
+
+    @Override
+    @GlobalTransactional
+    @Transactional(rollbackFor = Exception.class)
+    public UserDO getById(int userId) {
+        return super.baseMapper.getByIdForUpdate(userId);
     }
 
 }

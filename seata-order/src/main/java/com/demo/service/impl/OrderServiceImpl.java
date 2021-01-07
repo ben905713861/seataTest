@@ -6,6 +6,8 @@
 
 package com.demo.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -31,6 +33,13 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, OrderDO> implemen
         localAddOrder(userId, goodName, money);
         String res1 = userFeignClient.decreaseMoney(userId, money);
         System.err.println(res1);
+
+        try {
+            Thread.sleep(20000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        throw new RuntimeException("强制抛异常");
     }
 
     @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRES_NEW)
@@ -40,6 +49,13 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, OrderDO> implemen
         orderDO.setGoodName(goodName);
         orderDO.setPrice(money);
         super.save(orderDO);
+    }
+
+    @Override
+    @GlobalTransactional
+    @Transactional(rollbackFor = Exception.class)
+    public List<OrderDO> getOrderList(int userId) {
+        return super.baseMapper.listByUserId(userId);
     }
 
 }
