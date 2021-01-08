@@ -8,8 +8,10 @@ seata:
     type: nacos
     nacos:
       server-addr: 127.0.0.1:8848
+      cluster: default
       namespace:
       group: SEATA_GROUP
+      application: seata-server
   config:
     type: nacos
     nacos:
