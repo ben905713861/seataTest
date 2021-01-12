@@ -17,6 +17,7 @@ public class UserDO {
     private Integer id;
     private String name;
     private Integer money;
+    private Integer frozenMoney;
 
     public Integer getId() {
         return id;
@@ -40,6 +41,14 @@ public class UserDO {
 
     public void setMoney(Integer money) {
         this.money = money;
+    }
+
+    public Integer getFrozenMoney() {
+        return frozenMoney;
+    }
+
+    public void setFrozenMoney(Integer frozenMoney) {
+        this.frozenMoney = frozenMoney;
     }
 
 }

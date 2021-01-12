@@ -19,7 +19,10 @@ public interface UserMapper extends BaseMapper<UserDO> {
     @Select("SELECT * FROM user WHERE id=#{userId} FOR UPDATE")
     UserDO getByIdForUpdate(int userId);
 
-    @Update("update user set money=money-#{money} where id=#{userId}")
-    int decreaseMoney(int userId, int money);
+    @Update("update user set frozen_money=frozen_money-#{money} where id=#{userId}")
+    int decreaseFrozenMoney(int userId, int money);
+
+    @Update("update user set frozen_money=frozen_money-#{money}, money=money+#{money} where id=#{userId}")
+    int rollbackFrozenMoney(int userId, int money);
 
 }

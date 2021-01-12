@@ -11,7 +11,11 @@ import com.demo.entity.UserDO;
 
 public interface UserService extends IService<UserDO> {
 
-    void decreaseMoney(int userId, int money);
+    boolean frozenMoney(int userId, int money);
+
+    boolean decreaseFrozenMoney(int userId, int money);
+
+    boolean rollbackFrozenMoney(int userId, int money);
 
     UserDO getById(int userId);
 

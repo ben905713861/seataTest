@@ -5,14 +5,14 @@
     <artifactId>seata</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
-    
+
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.3.4.RELEASE</version>
         <relativePath /> <!-- lookup parent from repository -->
     </parent>
-    
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>8</maven.compiler.source>
@@ -32,10 +32,11 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-    
+
     <modules>
+        <module>seata-common</module>
         <module>seata-user</module>
         <module>seata-order</module>
     </modules>
-    
+
 </project>

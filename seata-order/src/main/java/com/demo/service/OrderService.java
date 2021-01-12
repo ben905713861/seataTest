@@ -13,8 +13,6 @@ import com.demo.entity.OrderDO;
 
 public interface OrderService extends IService<OrderDO> {
 
-    void createOrder(int userId, String goodName, int money);
-
     List<OrderDO> getOrderList(int userId);
 
 }

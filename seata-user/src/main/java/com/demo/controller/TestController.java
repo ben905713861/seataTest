@@ -21,12 +21,6 @@ public class TestController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/decreaseMoney")
-    public String decreaseMoney(int userId, int money) {
-        userService.decreaseMoney(userId, money);
-        return "ok";
-    }
-
     @GetMapping("/getMoney")
     public Integer getMoney(int userId) {
         UserDO userDO = userService.getById(userId);

@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @FeignClient(name = "user-service", url = "http://127.0.0.1:8081")
-public interface UserFeignClient {
+public interface UserTccFeignClient {
 
-    @GetMapping("/test/decreaseMoney")
-    String decreaseMoney(@RequestParam("userId") int userId, @RequestParam("money") int money);
+    @GetMapping("/userTccApi/prepare")
+    boolean prepare(@RequestParam("userId") int userId, @RequestParam("money") int money);
 
 }

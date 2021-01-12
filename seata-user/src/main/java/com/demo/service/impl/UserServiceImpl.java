@@ -20,22 +20,34 @@ import io.seata.spring.annotation.GlobalTransactional;
 public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements UserService {
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
-    public void decreaseMoney(int userId, int money) {
+    public boolean frozenMoney(int userId, int money) {
         UserDO userDO = super.baseMapper.getByIdForUpdate(userId);
         int afterMoney = userDO.getMoney().intValue() - money;
         if (afterMoney < 0) {
             throw new RuntimeException("钱不够了");
         }
         userDO.setMoney(afterMoney);
+        userDO.setFrozenMoney(userDO.getFrozenMoney().intValue() + money);
         super.baseMapper.updateById(userDO);
-
+        return true;
         // try {
         // Thread.sleep(20000);
         // } catch (InterruptedException e) {
         // e.printStackTrace();
         // }
         // throw new RuntimeException("强制抛异常");
+    }
+
+    @Override
+    public boolean decreaseFrozenMoney(int userId, int money) {
+        super.baseMapper.decreaseFrozenMoney(userId, money);
+        return true;
+    }
+
+    @Override
+    public boolean rollbackFrozenMoney(int userId, int money) {
+        super.baseMapper.rollbackFrozenMoney(userId, money);
+        return true;
     }
 
     @Override

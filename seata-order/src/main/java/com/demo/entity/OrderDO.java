@@ -13,11 +13,12 @@ import com.baomidou.mybatisplus.annotation.TableName;
 @TableName("`order`")
 public class OrderDO {
 
-    @TableId(type = IdType.AUTO)
+    @TableId(type = IdType.INPUT)
     private Integer id;
     private Integer userId;
     private String goodName;
     private Integer price;
+    private Integer status;
 
     public Integer getId() {
         return id;
@@ -49,6 +50,14 @@ public class OrderDO {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
 }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.demo.entity.OrderDO;
+import com.demo.service.BusinessService;
 import com.demo.service.OrderService;
 
 @RestController
@@ -22,13 +23,15 @@ public class TestController {
 
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private BusinessService businessService;
 
     @GetMapping
     public String test() {
         int userId = 1;
         int money = 2;
         String goodName = "肥皂";
-        orderService.createOrder(userId, goodName, money);
+        businessService.doAction(userId, goodName, money);
         return "hello";
     }
 
